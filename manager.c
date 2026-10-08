@@ -26,6 +26,9 @@ void ensayar(Idol *i) {
     i->popularidad += 5;
     i->energia = limitar(i->energia - 20, 0, i->energia_max);
 }
+void descansar(Idol *i) {
+    i->energia = limitar(i->energia + 30, 0, i->energia_max);
+}
 int main(void) {
     Idol jennie = {"Jennie", 50, 100, 100, 12000};
 
@@ -40,16 +43,25 @@ int main(void) {
     for (int j = 0; j < 20; j++) {
         ensayar(&jennie);
     }
-
-    printf("Despues de 20 ensayos -> Popularidad: %d, Energia: %d\n", jennie.popularidad, jennie.energia);
     
+    printf("Despues de 20 ensayos -> Popularidad: %d, Energia: %d\n", jennie.popularidad, jennie.energia);
+
+    printf(" PRUEBA DESCANSAR\n");
+    printf("Energia antes de descansar: %d\n", jennie.energia);
+
+    for (int j = 0; j < 20; j++) {
+        descansar(&jennie);
+    }
+
+    printf("Energia despues de descansar 20 veces: %d\n", jennie.energia);
+
     printf(" Registro de Integrante\n");
     printf("Nombre: %s\n", jennie.nombre);
     printf("Popularidad: %d\n", jennie.popularidad);
     printf("Energia: %d/%d\n", jennie.energia, jennie.energia_max);
     printf("Fans: %d\n", jennie.fans + (*p).fans - p->fans);
 
-printf(" Prueba de Limitar\n");
+    printf(" Prueba de Limitar\n");
     printf("limitar(50, 0, 100) = %d\n", limitar(50, 0, 100));
     printf("limitar(-5, 0, 100) = %d\n", limitar(-5, 0, 100));
     printf("limitar(150, 0, 100) = %d\n", limitar(150, 0, 100)); 
