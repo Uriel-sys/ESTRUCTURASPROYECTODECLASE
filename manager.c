@@ -22,6 +22,10 @@ int limitar(int valor, int minimo, int maximo){
       }
       return valor;
 }
+void ensayar(Idol *i) {
+    i->popularidad += 5;
+    i->energia = limitar(i->energia - 20, 0, i->energia_max);
+}
 int main(void) {
     Idol jennie = {"Jennie", 50, 100, 100, 12000};
 
@@ -30,11 +34,19 @@ int main(void) {
     printf("%p\n", (void*)&jennie);
     printf("%p\n", (void*)p);
 
+    printf(" PRUEBA DE ENSAYO (20 veces)\n");
+    printf("Popularidad inicial: %d, Energia inicial: %d\n", jennie.popularidad, jennie.energia);
+
+    for (int j = 0; j < 20; j++) {
+        ensayar(&jennie);
+    }
+
+    printf("Despues de 20 ensayos -> Popularidad: %d, Energia: %d\n", jennie.popularidad, jennie.energia);
+    
     printf(" Registro de Integrante\n");
     printf("Nombre: %s\n", jennie.nombre);
     printf("Popularidad: %d\n", jennie.popularidad);
     printf("Energia: %d/%d\n", jennie.energia, jennie.energia_max);
-    
     printf("Fans: %d\n", jennie.fans + (*p).fans - p->fans);
 
 printf(" Prueba de Limitar\n");
