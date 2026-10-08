@@ -12,6 +12,13 @@ void mostrar(const Idol *id){
     printf("Energia: %d", id->energia_max);
     printf("Fans: %d", id->fans);
 }
+int esta_activa(const Idol *i) {
+    if (i->energia > 0) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
 
 int limitar(int valor, int minimo, int maximo){
     if(valor < minimo){
@@ -65,6 +72,13 @@ int main(void) {
     printf("limitar(50, 0, 100) = %d\n", limitar(50, 0, 100));
     printf("limitar(-5, 0, 100) = %d\n", limitar(-5, 0, 100));
     printf("limitar(150, 0, 100) = %d\n", limitar(150, 0, 100)); 
+
+    printf(" ESTADO DE ACTIVIDAD\n");
+    printf("Energia: %d -> Estado activa: %d\n", jennie.energia, esta_activa(&jennie));
+    jennie.energia = 1;
+    printf("Energia: %d -> Estado activa: %d\n", jennie.energia, esta_activa(&jennie));
+    jennie.energia = 0;
+    printf("Energia: %d -> Estado activa: %d\n", jennie.energia, esta_activa(&jennie));
 
     return 0;
 }
