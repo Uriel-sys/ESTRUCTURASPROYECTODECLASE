@@ -7,38 +7,49 @@ typedef struct {
     int fans;
 } Idol;
 void mostrar(const Idol *id){
-    printf("%s", id->nombre);
-    printf("Popularidad: %d", id->popularidad);
-    printf("Energia: %d", id->energia_max);
-    printf("Fans: %d", id->fans);
+    if (id == NULL) return;
+    printf("Nombre: %s\n", id->nombre);
+    printf("Popularidad: %d\n", id->popularidad);
+    printf("Energia: %d/%d\n", id->energia, id->energia_max);
+    printf("Fans: %d\n", id->fans);
 }
 int esta_activa(const Idol *i) {
-    if (i->energia > 0) {
-        return 1;
-    } else {
-        return 0;
-    }
+    if (i == NULL) return 0;
+    return (i->energia > 0) ? 1 : 0;
 }
-
-int limitar(int valor, int minimo, int maximo){
-    if(valor < minimo){
-      return minimo;
-      }
-    if(valor > maximo){
-      return maximo;
-      }
-      return valor;
+int limitar(int valor, int minimo, int maximo) {
+    if (valor < minimo) return minimo;
+    if (valor > maximo) return maximo;
+    return valor;
 }
 void ensayar(Idol *i) {
+    if (i == NULL) return;
     i->popularidad += 5;
     i->energia = limitar(i->energia - 20, 0, i->energia_max);
 }
 void descansar(Idol *i) {
+    if (i == NULL) return;
     i->energia = limitar(i->energia + 30, 0, i->energia_max);
+}
+int colaboracion(Idol *a, Idol *b){
+    if(a == NULL || b == NULL || a == b){
+        return 0;
+    }
+    a->popularidad += 10;
+    a->energia = limitar(a->energia - 15, 0, a->energia_max);
+    b->popularidad += 10;
+    b->energia = limitar(b->energia - 15, 0, b->energia_max);
+    printf("Colaboracion exitosa entre %s y %s\n", a->nombre, b->nombre);
+    return 1;
+}
+void ensayar_por_valor(Idol i) {
+    i.popularidad += 5;
+    i.energia = limitar(i.energia - 20, 0, i.energia_max);
+    printf("Popularidad: %d, Energia: %d\n", i.popularidad, i.energia);
 }
 int main(void) {
     Idol jennie = {"Jennie", 50, 100, 100, 12000};
-
+    Idol rose = {"Rose", 40, 90, 100, 10000};
     Idol *p = &jennie;
     
     printf("--Memoria--\n");
@@ -48,10 +59,11 @@ int main(void) {
     printf("\n--Demostracion de paso de valor y apuntador--\n");
     printf("Estado inicial->Popularidad:%d,Energia:%d\n", jennie.popularidad, jennie.energia);
     printf("\n1.Demostracion de Paso por Valor:\n");
-    printf("(Fuera de ensayar) Popularidad:%d,Energia:%d\n", jennie.popularidad, jennie.energia);
+    ensayar_por_valor(jennie);
+    printf("Popularidad:%d,Energia:%d\n", jennie.popularidad, jennie.energia);
     printf("\n2.Demostracion de Paso por Apuntador:\n");
     ensayar(&jennie);
-    printf("(Fuera de ensayar) Popularidad: %d, Energia: %d\n", jennie.popularidad, jennie.energia);
+    printf("Popularidad: %d, Energia: %d\n", jennie.popularidad, jennie.energia);
 
     printf(" --PRUEBA DE ENSAYO (20 veces)--\n");
     printf("Popularidad inicial: %d, Energia inicial: %d\n", jennie.popularidad, jennie.energia);
@@ -88,6 +100,18 @@ int main(void) {
     printf("Energia: %d -> Estado activa: %d\n", jennie.energia, esta_activa(&jennie));
     jennie.energia = 0;
     printf("Energia: %d -> Estado activa: %d\n", jennie.energia, esta_activa(&jennie));
+
+    printf("--Prueba de Colaboracion--\n");
+    printf("1. Colaboracion jennie & jennie: %d\n", colaboracion(&jennie, &jennie));
+    printf("2. Colaboracion NULL & rose: %d\n", colaboracion(NULL, &rose));
+    printf("3. Colaboracion valida (&jennie, &rose):\n");
+    int exito = colaboracion(&jennie, &rose);
+    printf("Resultado retorno: %d\n", exito);
+    printf("\n--Estado tras colaboracion--\n");
+
+    mostrar(&jennie);
+    mostrar(&rose);
+
 
     return 0;
 }
