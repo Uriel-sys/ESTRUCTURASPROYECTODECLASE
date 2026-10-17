@@ -107,11 +107,39 @@ int main(void) {
     printf("3. Colaboracion valida (&jennie, &rose):\n");
     int exito = colaboracion(&jennie, &rose);
     printf("Resultado retorno: %d\n", exito);
+    
     printf("\n--Estado tras colaboracion--\n");
-
     mostrar(&jennie);
     mostrar(&rose);
 
+    printf("\n--Duelo de Ensayos por Turnos--\n");
+    jennie.energia = 100;
+    rose.energia = 100;
+
+    Idol *turno = &jennie;
+    Idol *otra = &rose;
+    Idol *temp = NULL;
+
+    int ronda = 1;
+    while (esta_activa(turno) && esta_activa(otra)) {
+        printf("Ronda %d: Le toca ensayar a %s (Energia previa: %d)\n", ronda, turno->nombre, turno->energia);
+        ensayar(turno);
+        printf("  -> Energia despues de ensayar: %d\n", turno->energia);
+
+        temp = turno;
+        turno = otra;
+        otra = temp;
+        ronda++;
+    }
+
+    printf("\n---Resultado del duelo---\n");
+    if (esta_activa(&jennie)) {
+        printf("%s conserva energia (%d) y gana el duelo\n", jennie.nombre, jennie.energia);
+    } else if (esta_activa(&rose)) {
+        printf("%s conserva energia (%d) y gana el duelo\n", rose.nombre, rose.energia);
+    } else {
+        printf("Ambas integrantes se quedaron sin energia al mismo tiempo.\n");
+    }
 
     return 0;
 }
