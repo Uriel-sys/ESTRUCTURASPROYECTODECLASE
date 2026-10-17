@@ -40,19 +40,18 @@ int main(void) {
     Idol jennie = {"Jennie", 50, 100, 100, 12000};
 
     Idol *p = &jennie;
-
+    
+    printf("--Memoria--\n");
     printf("Direccion de jennie: %p\n", (void*)&jennie);
     printf("Direccion de p: %p\n", (void*)p);
 
     printf("\n--Demostracion de paso de valor y apuntador--\n");
-    printf("Estado inicial -> Popularidad: %d, Energia: %d\n", jennie.popularidad, jennie.energia);
-
-    printf("\n1. Demostracion de Paso por Valor:\n");
-    printf("(Fuera de ensayar por valor) Popularidad: %d, Energia: %d (SIN CAMBIOS)\n", jennie.popularidad, jennie.energia);
-
-    printf("\n2. Demostracion de Paso por Apuntador:\n");
+    printf("Estado inicial->Popularidad:%d,Energia:%d\n", jennie.popularidad, jennie.energia);
+    printf("\n1.Demostracion de Paso por Valor:\n");
+    printf("(Fuera de ensayar) Popularidad:%d,Energia:%d\n", jennie.popularidad, jennie.energia);
+    printf("\n2.Demostracion de Paso por Apuntador:\n");
     ensayar(&jennie);
-    printf(" (fuera de ensayo) Popularidad: %d, Energia: %d\n", jennie.popularidad, jennie.energia);
+    printf("(Fuera de ensayar) Popularidad: %d, Energia: %d\n", jennie.popularidad, jennie.energia);
 
     printf(" --PRUEBA DE ENSAYO (20 veces)--\n");
     printf("Popularidad inicial: %d, Energia inicial: %d\n", jennie.popularidad, jennie.energia);
