@@ -41,10 +41,20 @@ int main(void) {
 
     Idol *p = &jennie;
 
-    printf("%p\n", (void*)&jennie);
-    printf("%p\n", (void*)p);
+    printf("Direccion de jennie: %p\n", (void*)&jennie);
+    printf("Direccion de p: %p\n", (void*)p);
 
-    printf(" PRUEBA DE ENSAYO (20 veces)\n");
+    printf("\n--Demostracion de paso de valor y apuntador--\n");
+    printf("Estado inicial -> Popularidad: %d, Energia: %d\n", jennie.popularidad, jennie.energia);
+
+    printf("\n1. Demostracion de Paso por Valor:\n");
+    printf("(Fuera de ensayar por valor) Popularidad: %d, Energia: %d (SIN CAMBIOS)\n", jennie.popularidad, jennie.energia);
+
+    printf("\n2. Demostracion de Paso por Apuntador:\n");
+    ensayar(&jennie);
+    printf(" (fuera de ensayo) Popularidad: %d, Energia: %d\n", jennie.popularidad, jennie.energia);
+
+    printf(" --PRUEBA DE ENSAYO (20 veces)--\n");
     printf("Popularidad inicial: %d, Energia inicial: %d\n", jennie.popularidad, jennie.energia);
 
     for (int j = 0; j < 20; j++) {
@@ -53,7 +63,7 @@ int main(void) {
     
     printf("Despues de 20 ensayos -> Popularidad: %d, Energia: %d\n", jennie.popularidad, jennie.energia);
 
-    printf(" PRUEBA DESCANSAR\n");
+    printf(" --PRUEBA DESCANSAR--\n");
     printf("Energia antes de descansar: %d\n", jennie.energia);
 
     for (int j = 0; j < 20; j++) {
@@ -62,18 +72,18 @@ int main(void) {
 
     printf("Energia despues de descansar 20 veces: %d\n", jennie.energia);
 
-    printf(" Registro de Integrante\n");
+    printf(" --Registro de Integrante--\n");
     printf("Nombre: %s\n", jennie.nombre);
     printf("Popularidad: %d\n", jennie.popularidad);
     printf("Energia: %d/%d\n", jennie.energia, jennie.energia_max);
     printf("Fans: %d\n", jennie.fans + (*p).fans - p->fans);
 
-    printf(" Prueba de Limitar\n");
+    printf(" --Prueba de Limitar--\n");
     printf("limitar(50, 0, 100) = %d\n", limitar(50, 0, 100));
     printf("limitar(-5, 0, 100) = %d\n", limitar(-5, 0, 100));
     printf("limitar(150, 0, 100) = %d\n", limitar(150, 0, 100)); 
 
-    printf(" ESTADO DE ACTIVIDAD\n");
+    printf("--ESTADO DE ACTIVIDAD--\n");
     printf("Energia: %d -> Estado activa: %d\n", jennie.energia, esta_activa(&jennie));
     jennie.energia = 1;
     printf("Energia: %d -> Estado activa: %d\n", jennie.energia, esta_activa(&jennie));
