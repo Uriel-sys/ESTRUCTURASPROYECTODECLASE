@@ -58,6 +58,10 @@ void ensayar_por_valor(Idol i) {
     i.energia = limitar(i.energia - 20, 0, i.energia_max);
     printf("Popularidad: %d, Energia: %d\n", i.popularidad, i.energia);
 }
+void asignar_cancion(Idol *i, Cancion *c) {
+    if (i == NULL) return; 
+    i->cancion = c;       
+}
 int main(void) {
         Cancion discos[2] = {
         {"Starlight", 10, 3},
@@ -71,6 +75,18 @@ int main(void) {
        for (int c = 0; c < 2; c++) {
         printf("Cancion: %s, Bonus: +%d, Vigencia: %d\n", discos[c].nombre, discos[c].bonus, discos[c].vigencia);
     }
+
+    printf("\n--Prueba quitatelo y pontelo de canciones--\n");
+    asignar_cancion(&jennie, &discos[0]);
+    printf("-> Despues de asignar 'Starlight' a Jennie:\n");
+    mostrar(&jennie);
+    asignar_cancion(&rose, &discos[0]);
+    printf("\n-> Despues de asignar la MISMA cancion ('Starlight') a Rose:\n");
+    mostrar(&rose);
+    asignar_cancion(&jennie, NULL);
+    printf("\n-> Despues de quitarle la cancion a Jennie:\n");
+    mostrar(&jennie);
+    asignar_cancion(NULL, &discos[1]);
 
     printf("\n--Memoria--\n");
     printf("Direccion de jennie: %p\n", (void*)&jennie);
