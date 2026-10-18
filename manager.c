@@ -63,7 +63,7 @@ int main(void) {
         {"Starlight", 10, 3},
         {"Nova", 5, 6}
     };
-    Idol jennie = {"Jennie", 50, 100, 100, 12000, &discos[1]};
+    Idol jennie = {"Jennie", 50, 100, 100, 12000, NULL};
     Idol rose = {"Rose", 40, 90, 100, 10000, NULL};
     Idol *p = &jennie;
     
