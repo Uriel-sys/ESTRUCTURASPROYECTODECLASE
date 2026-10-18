@@ -1,4 +1,9 @@
 #include <stdio.h>
+typedef struct{
+    char nombre[30];
+    int bonus;
+    int vigencia;
+} Cancion;
 typedef struct {
     char nombre[30];
     int popularidad;
@@ -52,6 +57,15 @@ int main(void) {
     Idol rose = {"Rose", 40, 90, 100, 10000};
     Idol *p = &jennie;
     
+    Cancion discos[2] = {
+        {"Starlight", 10, 3},
+        {"Nova", 5, 6}
+    };
+      printf("--Registro de canciones--\n");
+       for (int c = 0; c < 2; c++) {
+        printf("Cancion: %s, Bonus: +%d, Vigencia: %d\n", discos[c].nombre, discos[c].bonus, discos[c].vigencia);
+    }
+
     printf("--Memoria--\n");
     printf("Direccion de jennie: %p\n", (void*)&jennie);
     printf("Direccion de p: %p\n", (void*)p);
@@ -65,7 +79,7 @@ int main(void) {
     ensayar(&jennie);
     printf("Popularidad: %d, Energia: %d\n", jennie.popularidad, jennie.energia);
 
-    printf(" --PRUEBA DE ENSAYO (20 veces)--\n");
+    printf("--PRUEBA DE ENSAYO (20 veces)--\n");
     printf("Popularidad inicial: %d, Energia inicial: %d\n", jennie.popularidad, jennie.energia);
 
     for (int j = 0; j < 20; j++) {
@@ -140,6 +154,5 @@ int main(void) {
     } else {
         printf("Ambas integrantes se quedaron sin energia al mismo tiempo.\n");
     }
-
     return 0;
 }
