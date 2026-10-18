@@ -10,6 +10,7 @@ typedef struct {
     int energia;
     int energia_max;
     int fans;
+    Cancion *cancion;
 } Idol;
 void mostrar(const Idol *id){
     if (id == NULL) return;
@@ -17,6 +18,11 @@ void mostrar(const Idol *id){
     printf("Popularidad: %d\n", id->popularidad);
     printf("Energia: %d/%d\n", id->energia, id->energia_max);
     printf("Fans: %d\n", id->fans);
+    if(id->cancion != NULL){
+        printf("Cancion: %s, Bonus: +%d, Vigencia: %d\n", id->cancion->nombre, id->cancion->bonus, id->cancion->vigencia);
+    } else {
+        printf("Cancion asignada: Ninguno\n");
+    }
 }
 int esta_activa(const Idol *i) {
     if (i == NULL) return 0;
@@ -53,33 +59,33 @@ void ensayar_por_valor(Idol i) {
     printf("Popularidad: %d, Energia: %d\n", i.popularidad, i.energia);
 }
 int main(void) {
-    Idol jennie = {"Jennie", 50, 100, 100, 12000};
-    Idol rose = {"Rose", 40, 90, 100, 10000};
-    Idol *p = &jennie;
-    
-    Cancion discos[2] = {
+        Cancion discos[2] = {
         {"Starlight", 10, 3},
         {"Nova", 5, 6}
     };
-      printf("--Registro de canciones--\n");
+    Idol jennie = {"Jennie", 50, 100, 100, 12000, &discos[1]};
+    Idol rose = {"Rose", 40, 90, 100, 10000, NULL};
+    Idol *p = &jennie;
+    
+      printf("\n--Registro de canciones--\n");
        for (int c = 0; c < 2; c++) {
         printf("Cancion: %s, Bonus: +%d, Vigencia: %d\n", discos[c].nombre, discos[c].bonus, discos[c].vigencia);
     }
 
-    printf("--Memoria--\n");
+    printf("\n--Memoria--\n");
     printf("Direccion de jennie: %p\n", (void*)&jennie);
     printf("Direccion de p: %p\n", (void*)p);
 
     printf("\n--Demostracion de paso de valor y apuntador--\n");
     printf("Estado inicial->Popularidad:%d,Energia:%d\n", jennie.popularidad, jennie.energia);
-    printf("\n1.Demostracion de Paso por Valor:\n");
+    printf("1.Demostracion de Paso por Valor:\n");
     ensayar_por_valor(jennie);
     printf("Popularidad:%d,Energia:%d\n", jennie.popularidad, jennie.energia);
-    printf("\n2.Demostracion de Paso por Apuntador:\n");
+    printf("2.Demostracion de Paso por Apuntador:\n");
     ensayar(&jennie);
     printf("Popularidad: %d, Energia: %d\n", jennie.popularidad, jennie.energia);
 
-    printf("--PRUEBA DE ENSAYO (20 veces)--\n");
+    printf("\n--PRUEBA DE ENSAYO (20 veces)--\n");
     printf("Popularidad inicial: %d, Energia inicial: %d\n", jennie.popularidad, jennie.energia);
 
     for (int j = 0; j < 20; j++) {
@@ -88,7 +94,7 @@ int main(void) {
     
     printf("Despues de 20 ensayos -> Popularidad: %d, Energia: %d\n", jennie.popularidad, jennie.energia);
 
-    printf(" --PRUEBA DESCANSAR--\n");
+    printf("\n--PRUEBA DESCANSAR--\n");
     printf("Energia antes de descansar: %d\n", jennie.energia);
 
     for (int j = 0; j < 20; j++) {
@@ -97,28 +103,33 @@ int main(void) {
 
     printf("Energia despues de descansar 20 veces: %d\n", jennie.energia);
 
-    printf(" --Registro de Integrante--\n");
+    printf("\n--Registro de integrante (jennie con cancion)--\n");
+    mostrar(&jennie);
+    printf("\n--Registro de integrante (rose con cancion)--\n");
+    mostrar(&rose);
+
+    printf("\n--Registro de Integrante--\n");
     printf("Nombre: %s\n", jennie.nombre);
     printf("Popularidad: %d\n", jennie.popularidad);
     printf("Energia: %d/%d\n", jennie.energia, jennie.energia_max);
     printf("Fans: %d\n", jennie.fans + (*p).fans - p->fans);
 
-    printf(" --Prueba de Limitar--\n");
+    printf("\n--Prueba de Limitar--\n");
     printf("limitar(50, 0, 100) = %d\n", limitar(50, 0, 100));
     printf("limitar(-5, 0, 100) = %d\n", limitar(-5, 0, 100));
     printf("limitar(150, 0, 100) = %d\n", limitar(150, 0, 100)); 
 
-    printf("--ESTADO DE ACTIVIDAD--\n");
+    printf("\n--ESTADO DE ACTIVIDAD--\n");
     printf("Energia: %d -> Estado activa: %d\n", jennie.energia, esta_activa(&jennie));
     jennie.energia = 1;
     printf("Energia: %d -> Estado activa: %d\n", jennie.energia, esta_activa(&jennie));
     jennie.energia = 0;
     printf("Energia: %d -> Estado activa: %d\n", jennie.energia, esta_activa(&jennie));
 
-    printf("--Prueba de Colaboracion--\n");
-    printf("1. Colaboracion jennie & jennie: %d\n", colaboracion(&jennie, &jennie));
-    printf("2. Colaboracion NULL & rose: %d\n", colaboracion(NULL, &rose));
-    printf("3. Colaboracion valida (&jennie, &rose):\n");
+    printf("\n--Prueba de Colaboracion--\n");
+    printf("1. Colaboracion jennie y jennie: %d\n", colaboracion(&jennie, &jennie));
+    printf("2. Colaboracion rose y rose: %d\n", colaboracion(NULL, &rose));
+    printf("3. Colaboracion valida (jennie y rose):\n");
     int exito = colaboracion(&jennie, &rose);
     printf("Resultado retorno: %d\n", exito);
     
